@@ -1,0 +1,10 @@
+-- 코드를 작성해주세요
+# SQL에서 비트 연산자는 숫자를 2진수로 자동 변환하여 연산을 수행한다.
+SELECT ID, EMAIL, FIRST_NAME, LAST_NAME
+FROM DEVELOPERS
+WHERE SKILL_CODE & (
+    SELECT SUM(CODE) 
+    FROM SKILLCODES 
+    WHERE NAME IN ('Python', 'C#')
+) > 0
+ORDER BY DEVELOPERS.ID
