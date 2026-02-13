@@ -1,22 +1,21 @@
 def solution(n, times):
     answer = 0
     times.sort()
-    high = times[-1]*n
     low = 1
+    total = 0
+    high = times[-1]*n
     
     while low <= high:
-        mid = (high + low) // 2
+        mid = (low+high) // 2
         total = 0
         
-        for i in range(len(times)):
-            total += mid // times[i]
-            
-            if total >= n : break
+        for t in times:
+            total += mid // t
         
-        if total < n:
-            low = mid + 1
-        else:
-            high = mid -1
+        if total >= n:
+            high = mid - 1 # 더 짧은 시간도 가능한지 확인
             answer = mid
+        else:
+            low = mid + 1
     
     return answer
