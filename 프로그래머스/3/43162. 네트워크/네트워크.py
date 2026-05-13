@@ -1,16 +1,22 @@
-def dfs(n, node, computers, visited):
-    visited[node] = True # 현재 노드는 visited
-    for i in range(n):
-        if i != node and computers[node][i] == 1 and not visited[i]:
-            dfs(n, i, computers, visited)
+def dfs(graph, v, visited):
+    for i in graph[v]:
+        if not visited[i]:
+            visited[i] = True
+            dfs(graph, i, visited)
 
-            
 def solution(n, computers):
-    count = 0
-    visited = [False] * n
-    for i in range(n):
-        if visited[i] == False:
-            dfs(n, i, computers, visited)
-            count += 1
+    cnt = 0
+    com = len(computers)
+    visited = [False for _ in range(n)]
+    graph = [[] for _ in range(n)]
+    for k in range(com):
+        for i in range(com):
+            if i!=k and computers[k][i] and (i not in graph[k]):
+                graph[k].append(i)
     
-    return count
+    for i in range(com):
+        if not visited[i]:
+            dfs(graph, i, visited)
+            cnt += 1
+    
+    return cnt
