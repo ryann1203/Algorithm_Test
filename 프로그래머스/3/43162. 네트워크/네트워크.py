@@ -1,22 +1,28 @@
-def dfs(graph, v, visited):
-    for i in graph[v]:
-        if not visited[i]:
-            visited[i] = True
-            dfs(graph, i, visited)
+def dfs(dic, start, visited):
+    visited[start] = True
+    
+    for nodes in dic[start]:
+        if not visited[nodes]:
+            dfs(dic, nodes, visited)
+    
+    return 1
 
 def solution(n, computers):
-    cnt = 0
-    com = len(computers)
+    answer = 0
+    dic = {i : [] for i in range(n)}
     visited = [False for _ in range(n)]
-    graph = [[] for _ in range(n)]
-    for k in range(com):
-        for i in range(com):
-            if i!=k and computers[k][i] and (i not in graph[k]):
-                graph[k].append(i)
     
-    for i in range(com):
-        if not visited[i]:
-            dfs(graph, i, visited)
-            cnt += 1
+    # dictionary 설정
+    for idx, com in enumerate(computers):
+        for i in range(n):
+            if idx != i and com[i]:
+                dic[idx].append(i)
     
-    return cnt
+    for dics in dic:
+        for val in dic[dics]:
+            if not visited[val]: 
+                answer += dfs(dic, val, visited) 
+    
+    answer += visited.count(False)
+                
+    return answer
