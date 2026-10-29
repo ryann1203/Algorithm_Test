@@ -20,7 +20,7 @@ def solution(numbers):
     
     for num in new_arr:
         flag = True
-        for i in range(2, num):
+        for i in range(2, num//2+1):
             if num % i == 0: # 나누어 떨어진다면 소수가 아님.
                 flag = False
                 break
