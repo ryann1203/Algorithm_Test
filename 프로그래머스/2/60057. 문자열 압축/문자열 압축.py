@@ -1,5 +1,3 @@
-from collections import deque
-
 def findmin(q, l):  # 그 개수만큼 묶어서 리턴한다.
     cnt = 1
     new_ans = ''
@@ -39,16 +37,11 @@ def solution(s):
         return 1
     
     for i in range(1, l//2+1): # i는 자를 기준 개수.
-        ss = deque(s)
-        q = deque()
+        q = []
         
-        while ss:
-            new = ''
-            for j in range(i): # 그 개수만큼 묶어서 new에 더한다.
-                if ss:
-                    new += ss.popleft()
-            
-            q.append(new)
+        for j in range(0, len(s), i):
+            ss = s[j:j+i]
+            q.append(ss)
         
         val = findmin(q, l) # 이제 여기 묶인 배열에서 여기의 길이를 구해야함
         min_ans = min(len(val), min_ans)
